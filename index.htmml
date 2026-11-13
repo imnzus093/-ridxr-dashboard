@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IG Fraud Analysis Panel</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#080d18;
+color:#fff;
+}
+header{
+background:#101a2d;
+padding:22px;
+border-bottom:1px solid #173d68;
+}
+header h2{margin:0;color:#38aaff}
+header p{color:#9bb0cc;font-size:13px}
+main{padding:18px;max-width:700px;margin:auto}
+.card{
+background:#111d30;
+border:1px solid #1d416b;
+border-radius:12px;
+padding:18px;
+margin-bottom:18px;
+}
+h3{color:#48adff;margin-top:0}
+label{display:block;margin:14px 0 7px}
+input,textarea,select{
+width:100%;
+padding:13px;
+background:#091323;
+border:1px solid #294c73;
+border-radius:7px;
+color:white;
+font-size:15px;
+}
+button{
+width:100%;
+padding:14px;
+background:#087fe5;
+border:0;
+border-radius:8px;
+color:white;
+font-weight:bold;
+font-size:15px;
+margin-top:15px;
+}
+.result{
+display:none;
+margin-top:15px;
+padding:14px;
+background:#091323;
+border-radius:8px;
+line-height:1.6;
+}
+small{color:#91a9c6}
+</style>
+</head>
+<body>
+<header>
+<h2>IG FRAUD ANALYSIS</h2>
+<p>Instagram Account Evidence Dashboard</p>
+</header>
+<main>
+<div class="card">
+<h3>Account Analysis</h3>
+<label>Instagram Username</label>
+<input id="username" placeholder="@username">
+<label>Profile URL (optional)</label>
+<input id="url" placeholder="https://instagram.com/username">
+<label>Case Type</label>
+<select id="type">
+<option>Impersonation</option>
+<option>Fake Account</option>
+<option>Suspicious Activity</option>
+<option>Other</option>
+</select>
+<label>Evidence / Case Notes</label>
+<textarea id="notes" rows="4" placeholder="Describe the evidence..."></textarea>
+<button onclick="analyze()">Analyze Evidence</button>
+<div class="result" id="result"></div>
+</div>
+<div class="card">
+<h3>Important</h3>
+<small>This dashboard organizes information entered by you. It does not access Instagram, verify account ownership, or automatically submit reports.</small>
+</div>
+</main>
+<script>
+function analyze(){
+const user=document.getElementById('username').value.trim();
+const type=document.getElementById('type').value;
+const notes=document.getElementById('notes').value.trim();
+if(!user){
+alert('Please enter an Instagram username');
+return;
+}
+document.getElementById('result').style.display='block';
+document.getElementById('result').innerHTML=
+'<h3>Case Summary</h3>'+
+'<b>Username:</b> '+escapeText(user)+'<br>'+
+'<b>Case Type:</b> '+escapeText(type)+'<br>'+
+'<b>Evidence Notes:</b> '+escapeText(notes||'Not provided')+
+'<br><br><b>Status:</b> Pending manual review';
+}
+function escapeText(s){
+return s.replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;',
+'"':'&quot;',"'":'&#39;'
+}[c]));
+}
+</script>
+</body>
+</html>
+
